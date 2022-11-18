@@ -50,10 +50,16 @@ class Company(models.Model):
     provider = models.ForeignKey(
         'self',
         on_delete=models.SET_NULL,
+        verbose_name='Поставщик',
+        related_name='traders',
         null=True,
-        blank=True
+        blank=True,
     )
-    debt = models.DecimalField(max_digits=20, decimal_places=2)
+    debt = models.DecimalField(
+        max_digits=20,
+        decimal_places=2,
+        verbose_name='Задолженность'
+    )
     pub_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
