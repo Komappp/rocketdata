@@ -11,6 +11,7 @@ class Product(models.Model):
         max_length=100
     )
     release_date = models.DateField(
+        verbose_name='Дата выхода на рынок',
         auto_now=False,
         auto_now_add=False
     )

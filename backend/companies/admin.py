@@ -1,8 +1,6 @@
 from django.contrib import admin
-# from django.contrib.admin import decorators
 
 from .models import Company, Product
-from users.models import User
 
 
 @admin.action(description='Очищает задолженность перед поставщиком')
@@ -12,10 +10,15 @@ def clear_debt(modeladmin, request, queryset):
 
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ('name', 'country', 'city', 'provider', 'debt')
+    list_display_links = ('name', 'provider')
     list_filter = ('city',)
     actions = [clear_debt]
 
 
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'model', 'release_date')
+    list_filter = ('name',)
+
+
 admin.site.register(Company, CompanyAdmin)
-admin.site.register(Product)
-admin.site.register(User)
+admin.site.register(Product, ProductAdmin)
