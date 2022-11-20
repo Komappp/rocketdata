@@ -21,6 +21,16 @@ class Product(models.Model):
 
 
 class Company(models.Model):
+    TYPES = (
+        (0, 'Завод'),
+        (1, 'Дистрибьютер'),
+        (2, 'Дилерский центр'),
+        (3, 'Крупная розничная сеть'),
+        (4, 'Индивидуальный предприниматель')
+    )
+    hierarchy = models.SmallIntegerField(
+            verbose_name='Тип компании',
+            choices=TYPES)
     name = models.CharField(
         verbose_name='Название компании',
         max_length=50
@@ -59,8 +69,9 @@ class Company(models.Model):
     debt = models.DecimalField(
         max_digits=20,
         decimal_places=2,
-        verbose_name='Задолженность'
-    )
+        verbose_name='Задолженность',
+        default=0
+        )
     pub_date = models.DateField(auto_now_add=True)
 
     def __str__(self):
