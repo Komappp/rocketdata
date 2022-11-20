@@ -28,8 +28,8 @@ class Command(BaseCommand):
         print('Загрузка тестовых данных в БД')
         transport = Transport()
         date = Datetime()
-
         products = []
+        users = []
         for _ in range(PRODUCT_COUNT):
             # создаем продукцию. Не нашел ничего более внятного, чем авто
             # поэтому не удивляйтесь если завод Макдональдс
@@ -41,7 +41,6 @@ class Command(BaseCommand):
                 release_date=date.date()
             ))
         Product.objects.bulk_create(products)
-        users = []
         for _ in range(COMPANY_COUNT):
             # выбираем случайную страну и создаем объекты mimesis
             locale = LOCALES[randint(0, len(LOCALES)-1)]
