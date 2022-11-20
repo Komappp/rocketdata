@@ -1,11 +1,12 @@
-from .models import Company, Product
-from .serializers import CompanySerializer, ProductSerializer
-from .permissions import IsActive
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.decorators import action
-from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Avg
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
+from .models import Company, Product
+from .permissions import IsActive
+from .serializers import CompanySerializer, ProductSerializer
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
