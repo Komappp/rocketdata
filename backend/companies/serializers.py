@@ -20,6 +20,19 @@ class CompanySerializer(serializers.ModelSerializer):
                 data.update({'debt': original_debt})
         return data
 
+    
+class CompanyQRSerializer(serializers.ModelSerializer):
+    name = serializers.CharField()
+    email = serializers.EmailField()
+    country = serializers.CharField()
+    city = serializers.CharField()
+    street = serializers.CharField()
+    house_number = serializers.CharField()
+
+    class Meta:
+        model = Product
+        fields = ('name', 'email', 'country', 'city', 'street', 'house_number')
+
 
 class ProductSerializer(serializers.ModelSerializer):
 

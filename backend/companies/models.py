@@ -33,10 +33,11 @@ class Company(models.Model):
             choices=TYPES)
     name = models.CharField(
         verbose_name='Название компании',
-        max_length=50
+        max_length=50,
     )
     email = models.EmailField(
-        max_length=254
+        max_length=254,
+        unique=True
     )
     country = models.CharField(
         verbose_name='Название страны',

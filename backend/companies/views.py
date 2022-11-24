@@ -6,7 +6,8 @@ from rest_framework.response import Response
 
 from .models import Company, Product
 from .permissions import IsActive
-from .serializers import CompanySerializer, ProductSerializer
+from .serializers import (CompanySerializer, ProductSerializer,
+                          CompanyQRSerializer)
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -22,6 +23,13 @@ class CompanyViewSet(viewsets.ModelViewSet):
         avg = Company.objects.aggregate(Avg('debt'))['debt__avg']
         queryset = Company.objects.filter(debt__gt=avg)
         serializer = CompanySerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=True, url_path='get_qr')
+    def get_contact_in_qr(self, request, pk=None):
+        '''Returns company contacts in QR'''
+        obj = Company.objects.get(id=pk)
+        serializer = CompanyQRSerializer(obj)
         return Response(serializer.data)
 
 

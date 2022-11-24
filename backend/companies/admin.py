@@ -1,16 +1,20 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
-
+from .tasks import async_clear_debt
 from .models import Company, Product
 
 
 @admin.action(description='Очиcтить задолженность перед поставщиком')
 def clear_debt(modeladmin, request, queryset):
+    if len(queryset) > 20:
+        async_clear_debt.delay(list(queryset.values('id')))
+        return
     queryset.update(debt=0)
 
 
 class CompanyAdmin(admin.ModelAdmin):
-    list_display = ('hierarchy', 'name', 'country', 'city', 'provider_link', 'debt')
+    list_display = ('hierarchy', 'name', 'country',
+                    'city', 'provider_link', 'debt')
     list_display_links = ('name', )
     list_filter = ('city', 'hierarchy')
     actions = [clear_debt]
