@@ -4,14 +4,9 @@ from .models import Company, Product
 
 
 class CompanySerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Company
-        fields = '__all__'
-
     def validate(self, data):
         instance = self.instance
-        if instance is not None:
+        if instance:
             original_debt = instance.debt
             new_debt = data.get('debt')
             # Если кто нибудь решил изменить задолженность через API
@@ -20,7 +15,11 @@ class CompanySerializer(serializers.ModelSerializer):
                 data.update({'debt': original_debt})
         return data
 
-    
+    class Meta:
+        model = Company
+        fields = '__all__'
+
+
 class CompanyQRSerializer(serializers.ModelSerializer):
     name = serializers.CharField()
     email = serializers.EmailField()

@@ -1,6 +1,6 @@
 """ для генерации рандомных данных использую библиотеку mimesis
 Cайт: https://mimesis.name/en/master/index.html """
-from random import randint, choice
+from random import choice, randint
 
 from companies.models import Company, Product
 from django.contrib.auth.hashers import make_password
@@ -14,9 +14,9 @@ from users.models import User
 LOCALES = [Locale.RU, Locale.DE, Locale.PL, Locale.EN_GB]
 GENDERS = [Gender.FEMALE, Gender.MALE]
 # Количество данных
-COMPANY_COUNT = 50
+COMPANY_COUNT = 10
 EMPLOYEES_COUNT = 50
-PRODUCT_COUNT = 100
+PRODUCT_COUNT = 50
 # Пароль для сотрудников будет одинаковым для удобства тестирования
 PASSWORD = make_password('1')
 
@@ -51,7 +51,7 @@ class Command(BaseCommand):
             finance = Finance(locale)
             address = Address(locale)
             # первый объект обязательно завод
-            hierarchy = randint(0,4) if Company.objects.exists() else 0
+            hierarchy = randint(0, 4) if Company.objects.exists() else 0
             company = Company(
                 hierarchy=hierarchy,
                 name=finance.company(),

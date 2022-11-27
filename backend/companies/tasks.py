@@ -5,6 +5,8 @@ from django.db.models import F
 
 from backend.celery import app
 
+from .utils import send_mail
+
 
 @app.task
 def raise_debt_random():
@@ -29,6 +31,6 @@ def async_clear_debt(list_id):
         Company.objects.filter(id=id['id']).update(debt=0)
 
 
-# @app.task
-# def send_qr_to_email():
-    
+@app.task
+def send_qr_to_email(data, to_email):
+    send_mail(data, to_email)

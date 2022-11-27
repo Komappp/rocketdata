@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from .models import User
@@ -21,10 +22,12 @@ class UserAdmin(UserAdmin):
     def company_link(self, obj):
 
         if obj.company:
+            link = reverse(
+                'admin:companies_company_change',
+                args=(obj.company.id,)
+            )
             return mark_safe(
-                f"<a href='/admin/companies/company/{obj.company.id}/change/'>"
-                f"{obj.company}"
-                f"</a>"
+                u"<a href='{0}'>{1}</a>".format(link, obj.company)
             )
 
 

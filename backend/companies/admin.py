@@ -1,7 +1,9 @@
 from django.contrib import admin
+from django.urls import reverse
 from django.utils.safestring import mark_safe
-from .tasks import async_clear_debt
+
 from .models import Company, Product
+from .tasks import async_clear_debt
 
 
 @admin.action(description='Очиcтить задолженность перед поставщиком')
@@ -22,12 +24,13 @@ class CompanyAdmin(admin.ModelAdmin):
     def provider_link(self, obj):
 
         if obj.provider:
-            return mark_safe(
-                f"<a href='/admin/companies/company/{obj.provider.id}/change/'>"
-                f"{obj.provider}"
-                f"</a>"
+            link = reverse(
+                'admin:companies_company_change',
+                args=(obj.provider.id,)
             )
-
+            return mark_safe(
+                u"<a href='{0}'>{1}</a>".format(link, obj.provider)
+            )
 
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'model', 'release_date')
