@@ -2,21 +2,22 @@
 Cайт: https://mimesis.name/en/master/index.html """
 from random import choice, randint
 
-from companies.models import Company, Product
 from django.contrib.auth.hashers import make_password
 from django.core.management import BaseCommand
 from mimesis import Address, Datetime, Finance, Person, Transport
 from mimesis.enums import Gender
 from mimesis.locales import Locale
+
+from companies.models import Company, Product
 from users.models import User
 
 # Настройки mimesis для локализации данных и гендера
 LOCALES = [Locale.RU, Locale.DE, Locale.PL, Locale.EN_GB]
 GENDERS = [Gender.FEMALE, Gender.MALE]
 # Количество данных
-COMPANY_COUNT = 10
+COMPANY_COUNT = 15
 EMPLOYEES_COUNT = 50
-PRODUCT_COUNT = 50
+PRODUCT_COUNT = 2
 # Пароль для сотрудников будет одинаковым для удобства тестирования
 PASSWORD = make_password('1')
 

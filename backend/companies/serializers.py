@@ -3,6 +3,13 @@ from rest_framework import serializers
 from .models import Company, Product
 
 
+class ProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
+
 class CompanySerializer(serializers.ModelSerializer):
     def validate(self, data):
         instance = self.instance
@@ -15,6 +22,7 @@ class CompanySerializer(serializers.ModelSerializer):
             if new_debt and (new_debt != original_debt):
                 data.update({'debt': original_debt})
         return data
+    products = serializers.StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Company
@@ -32,10 +40,3 @@ class CompanyQRSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('name', 'email', 'country', 'city', 'street', 'house_number')
-
-
-class ProductSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Product
-        fields = '__all__'

@@ -4,8 +4,7 @@ from django.db import models
 class Product(models.Model):
     name = models.CharField(
         verbose_name='Название продукта',
-        max_length=25,
-        unique=True
+        max_length=25
     )
     model = models.CharField(
         verbose_name='Модель продукта',

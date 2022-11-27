@@ -1,9 +1,9 @@
 from random import randint
 
-from companies.models import Company
 from django.db.models import F
 
 from backend.celery import app
+from companies.models import Company
 
 from .utils import send_mail
 
