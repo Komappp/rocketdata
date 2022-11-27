@@ -8,6 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 root = environ.Path(__file__) - 2
 env = environ.Env()
 environ.Env.read_env()
+
 SITE_ROOT = root()
 
 SECRET_KEY = env.str('SECRET_KEY')
@@ -106,9 +107,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        #'rest_framework.permissions.IsAuthenticated',
-        'rest_framework.permissions.AllowAny',
-
+        'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -132,7 +131,6 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 EMAIL_HOST = env.str('EMAIL_HOST')
 EMAIL_HOST_USER = env.str('EMAIL_HOST_USER')
-# EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_PASSWORD = 'gbikzlaqqkvpaker'
-EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = env.int('EMAIL_PORT')
 EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')

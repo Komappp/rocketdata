@@ -4,7 +4,8 @@ from django.db import models
 class Product(models.Model):
     name = models.CharField(
         verbose_name='Название продукта',
-        max_length=25
+        max_length=25,
+        unique=True
     )
     model = models.CharField(
         verbose_name='Модель продукта',
@@ -34,6 +35,7 @@ class Company(models.Model):
     name = models.CharField(
         verbose_name='Название компании',
         max_length=50,
+        unique=True
     )
     email = models.EmailField(
         max_length=254,

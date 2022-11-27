@@ -40,7 +40,7 @@ class Command(BaseCommand):
 
         users = []
 
-        # создаем продукцию. Не нашел ничего более внятного, чем авто
+        # создаем продукцию. Не нашел в либе ничего более внятного, чем авто
         # поэтому не удивляйтесь если завод Макдональдс
         # выпускает Maybach.
         Product.objects.bulk_create(map(get_product, range(PRODUCT_COUNT)))

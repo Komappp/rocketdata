@@ -14,6 +14,7 @@ def clear_debt(modeladmin, request, queryset):
     queryset.update(debt=0)
 
 
+@admin.register(Company)
 class CompanyAdmin(admin.ModelAdmin):
     list_display = ('hierarchy', 'name', 'country',
                     'city', 'provider_link', 'debt')
@@ -32,10 +33,8 @@ class CompanyAdmin(admin.ModelAdmin):
                 u"<a href='{0}'>{1}</a>".format(link, obj.provider)
             )
 
+
+@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('name', 'model', 'release_date')
     list_filter = ('name',)
-
-
-admin.site.register(Company, CompanyAdmin)
-admin.site.register(Product, ProductAdmin)

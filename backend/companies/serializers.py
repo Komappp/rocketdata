@@ -9,9 +9,10 @@ class CompanySerializer(serializers.ModelSerializer):
         if instance:
             original_debt = instance.debt
             new_debt = data.get('debt')
-            # Если кто нибудь решил изменить задолженность через API
-            # просто изменим входящие данные на оригинал
-            if new_debt is not None and (new_debt != original_debt):
+            # Если кто нибудь посмеет изменить задолженность через API
+            # мы окажемся на шаг впереди и просто
+            # изменим входящие данные на оригинал
+            if new_debt and (new_debt != original_debt):
                 data.update({'debt': original_debt})
         return data
 
